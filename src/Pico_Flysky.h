@@ -1,5 +1,3 @@
-#include "RPi_Pico_TimerInterrupt.h"
-
 class Stream;
 
 class Pico_Flysky{
