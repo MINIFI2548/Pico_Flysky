@@ -18,7 +18,7 @@ void Pico_Flysky :: test(){
 
 void Pico_Flysky :: update(){ 
   uint32_t now = millis();
-  if (now - last >= PROTOCOL_TIMEGAP){
+  // if (now - last >= PROTOCOL_TIMEGAP){
     byte buf = stream -> read(); 
     if(buf == PROTOCOL_LENGTH) { 
       len = buf - PROTOCOL_OVERHEAD;
@@ -29,12 +29,18 @@ void Pico_Flysky :: update(){
       }
       for (uint8_t i = 1; i < PROTOCOL_CHANNELS * 2 + 1; i += 2) {
         channel[i / 2] = buffer[i] | (buffer[i + 1] << 8);
+        if ((channel[i / 2] > 990) && (channel[i / 2] < 2010)){
+          channelLastValue[i / 2] = channel[i / 2];
+        }
+        else {
+          channel[i / 2] = channelLastValue[i / 2];
+        }
         // Serial.println(channel[i / 2]);
       }
       // Serial.println();
     }
     last = now;
-  }
+  // }
 }
 
 int Pico_Flysky :: readChannel(uint8_t channelNr){
