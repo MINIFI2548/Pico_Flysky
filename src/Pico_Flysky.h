@@ -23,6 +23,7 @@ class Pico_Flysky{
     uint8_t len;
     uint8_t buffer[PROTOCOL_LENGTH];
     uint16_t channel[PROTOCOL_CHANNELS]; 
+    uint16_t channelLastValue[PROTOCOL_CHANNELS]; 
     uint16_t chksum;                  // checksum calculation
     uint8_t lchksum;                  // checksum lower byte received
     uint32_t last;
